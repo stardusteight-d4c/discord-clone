@@ -6,7 +6,7 @@ import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
 
 import { NavigationAction } from "./navigation-action"
-import { NavigationItem } from "./navigation.item"
+import { NavigationItem } from "./navigation-item"
 
 export const NavigationSidebar = async () => {
   const profile = await currentProfile()
