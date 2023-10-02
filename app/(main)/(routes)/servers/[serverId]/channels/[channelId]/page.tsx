@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation"
 import { redirectToSignIn } from "@clerk/nextjs"
 
+import { ChatHeader } from "@/components/chat/chat-header"
+
 import { currentProfile } from "@/lib/current-profile"
 import { db } from "@/lib/db"
 
@@ -35,7 +37,15 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
     redirect("/")
   }
 
-  return <div>ChannelIdPage</div>
+  return (
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+      <ChatHeader
+        name={channel.name}
+        serverId={channel.serverId}
+        type="channel"
+      />
+    </div>
+  )
 }
 
 export default ChannelIdPage
