@@ -39,8 +39,8 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
         setOpen((open) => !open)
       }
     }
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
+    window.addEventListener("keydown", down)
+    return () => window.removeEventListener("keydown", down)
   }, [])
 
   const onClick = ({
