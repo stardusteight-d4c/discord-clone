@@ -6,25 +6,15 @@
    Discord, Real-time Communication Channels
 </h1>
 
-This project is a web application developed with the aim of improving knowledge in specific frontend and backend technologies. The application aims to replicate the interface of two main Twitter pages: the posts feed and the login page.
+An instant messaging application designed to offer a real-time communication experience. This robust chat platform was developed using a variety of modern technologies to create an immersive and interactive user experience.
 
-Vue.js is a progressive JavaScript framework that allows the creation of reactive and interactive user interfaces broken down into reusable components. Nuxt 3 is an updated version of Nuxt.js, a Vue.js framework focused on creating SSR (Server-Side Rendered) and SSG (Static Site Generated) applications, offering better performance and an improved development experience.
+Users can create and join various themed chat rooms for specific discussions. Each chat room offers a dedicated environment for interaction. The application uses Socket.io to enable real-time communication between users, enabling instant messaging and real-time notifications.
 
-To share logic between components, the project uses Composables, which are part of the Vue.js Composition API, allowing you to reuse logic across multiple components, making the code more modular and easier to maintain. The project's styling and styling is done with the help of TailwindCSS, a utility CSS framework that makes it easy to create custom styles through utility classes.
+Livekit is built in to support voice and video calling, allowing users to have face-to-face or group conversations directly on the platform. It uses the Clerk library for secure user authentication and authorization, ensuring the protection of personal data. Radix and Shadcn/ui are employed to create an elegant and responsive design, providing a pleasant user experience on mobile and desktop devices.
 
-To handle communication between components, the application uses the Mitt library, which is a functional event emitter, offering a functional approach to event communication.
+Zustand is used to manage application state, ensuring data efficiency and consistency. The application uses React Hook Form to create interactive forms and the Zod library for data validation. React Query, part of the tanstack package, is used to effectively manage access to data and queries, improving performance and scalability. The Uploadthing library is used to support sending images, videos and other types of media in conversations.
 
-API routes are created using the Nuxt.js API Routes functionality, allowing communication between the frontend and the backend. The Transformers pattern is used to transform data before being sent to the client, allowing formatting and filtering of information before displaying it in the interface.
-
-For interaction with the No SQL database, the project uses the Prisma tool, which facilitates the creation of database schemas through declarative language and allows queries to be carried out in a more intuitive way.
-
-For form data analysis, especially file uploads, the project uses the Formidable library, simplifying the processing of data sent by forms.
-
-The Cloudinary service is used to host images and manage digital assets, storing and delivering images to the application.
-
-For authentication and authorization in the web application, the project uses Json Web Tokens, allowing the creation of signed tokens to authenticate users. In addition, the access and refresh token security approach is adopted, where users are given an access token with a short expiration and can renew it through the use of a refresh token.
-
-In short, the project is a combination of modern frontend and backend technologies, which aims to replicate aspects of Twitter's interface and functionality, demonstrating the efficient and safe use of technologies such as TypeScript, Vue.js, Nuxt.js, TailwindCSS, Prisma and Json Web Tokens.
+The application provides a complete chat experience, from text messaging to voice and video communication, all in a secure environment. It is a platform for communities, groups of friends or work teams who want to communicate and collaborate in an effective and engaging way.
 
 ## :hammer_and_wrench: Tools
 
