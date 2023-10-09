@@ -51,7 +51,7 @@ export const ServerMember = ({ member, server }: ServerMemberProps) => {
       >
         {member.profile.name}
       </p>
-      {icon}
+      <span className="-ml-2">{icon}</span>
     </button>
   )
 }
