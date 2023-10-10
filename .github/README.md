@@ -206,11 +206,11 @@ return (
 
 ### <strong>React Query</strong>
 
-Uma biblioteca de gerenciamento de estado para React que se concentra em dados assíncronos, como requisições de API, caching, sincronização e manipulação de dados em aplicações React. A biblioteca `@tanstack/react-query` faz parte desse ecossistema e é um pacote específico que ajuda a integrar o `react-query` com o React. 
+A state management library for React that focuses on asynchronous data such as API requests, caching, synchronization, and data manipulation in React applications. The `@tanstack/react-query` library is part of this ecosystem and is a specific package that helps integrate `react-query` with React.
 
-O `@tanstack/react-query` é projetado para trabalhar perfeitamente com o React, aproveitando os recursos do React, como hooks, para gerenciar o estado e a lógica de dados. A biblioteca facilita a busca, atualização e manipulação de dados assíncronos em aplicações React, incluindo a execução de consultas à API e a atualização do estado da aplicação em tempo real.
+`@tanstack/react-query` is designed to work seamlessly with React, leveraging React features like hooks to manage state and data logic. The library makes it easy to fetch, update, and manipulate asynchronous data in React applications, including running API queries and updating the application state in real time.
 
-O `react-query` inclui um sistema de caching inteligente que armazena em cache automaticamente os resultados das consultas, permitindo economizar recursos de rede e melhorar a experiência do usuário. Ele suporta a sincronização automática de dados, o que significa que os dados são automaticamente atualizados em resposta a mudanças nos dados do servidor, como em um ambiente de tempo real. Além de lidar com erros de forma eficaz, permitindo que você controle o tratamento de erros em consultas e mutações. 
+`react-query` includes an intelligent caching system that automatically caches query results, allowing you to save network resources and improve the user experience. It supports automatic data synchronization, which means that data is automatically updated in response to changes in server data, just like in a real-time environment. It also handles errors effectively, allowing you to control error handling in queries and mutations.
 
 ```ts
 // hooks/use-chat-query.ts
