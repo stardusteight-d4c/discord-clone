@@ -36,7 +36,7 @@ The application provides a complete chat experience, from text messaging to voic
 * Prisma
 
 ## :mailbox_with_mail: Utilities
- 
+
 ### <strong>Zustand</strong>
 
 "Zustand" is a state management library for React applications. It offers an alternative to using "Redux" to manage state in React applications, with the goal of simplifying application state management and making it easier to understand and maintain.
@@ -263,8 +263,157 @@ export const useChatQuery = ({
 }
 ```
 
+### <strong>Socket.io</strong>
+
+Socket.IO is a JavaScript library that allows real-time communication between clients (web browsers) and servers. It simplifies the creation of web and mobile applications that require two-way communication, such as chat rooms, online games, real-time collaboration applications, and more. Here is some important information about Socket.IO:
+
+Socket.IO allows two-way communication between the client and the server. This means that both the client and the server can send and receive data in real time. It uses a variety of communication protocols and transports, including WebSockets, AJAX long polling, among others. This ensures that real-time communication is possible even in restricted environments.
+
+Socket.IO is easy to use and has a simple and intuitive API. You can quickly start using it in your web and mobile projects, it supports creating rooms and channels to allow specific groups of customers to communicate with each other. This is useful for creating chat rooms, game groups, etc. It includes automatic reconnection, which means that if the connection is temporarily lost, Socket.IO will automatically try to reconnect the client to the server.
+
+```ts
+// pages/api/socket/messages/[messageId].ts
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponseServerIo
+) {
+  try {
+    const profile = await currentProfilePages(req)
+    const { messageId, serverId, channelId } = req.query
+    const { content } = req.body
+
+    // hidden code
+ 
+    if (req.method === "PATCH") {
+      if (!isMessageOwner) {
+        return res.status(401).json({ error: "Unauthorized" })
+      }
+      message = await db.message.update({
+        where: {
+          id: messageId as string,
+        },
+        data: {
+          content,
+        },
+        include: {
+          member: {
+            include: {
+              profile: true,
+            },
+          },
+        },
+      })
+    }
+
+    const updateKey = `chat:${channelId}:messages:update`
+
+    res?.socket?.server?.io?.emit(updateKey, message)
+
+    return res.status(200).json(message)
+  } catch (error) {
+    console.log("[MESSAGE_ID]", error)
+    return res.status(405).json({ error: "Internal Error" })
+  }
+}
+
+```
+
+```ts
+// hooks/use-chat-socket.ts
+
+import { useQueryClient } from "@tanstack/react-query"
+
+import { useSocket } from "@/components/providers/socket-provider"
+import { useEffect } from "react"
+import { Member, Message, Profile } from "@prisma/client"
+
+type ChatSocketProps = {
+  addKey: string
+  updateKey: string
+  queryKey: string
+}
+
+type MessageWithMemberWithProfile = Message & {
+  member: Member & {
+    profile: Profile
+  }
+}
+
+export const useChatSocket = ({
+  addKey,
+  updateKey,
+  queryKey,
+}: ChatSocketProps) => {
+  const { socket } = useSocket()
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (!socket) {
+      return
+    }
+
+    socket.on(updateKey, (message: MessageWithMemberWithProfile) => {
+      queryClient.setQueryData([queryKey], (oldData: any) => {
+        if (!oldData || !oldData.pages || oldData.pages.length === 0) {
+          return oldData
+        }
+
+        const newData = oldData.pages.map((page: any) => {
+          return {
+            ...page,
+            items: page.items.map((item: MessageWithMemberWithProfile) => {
+              if (item.id === message.id) {
+                return message
+              }
+              return item
+            }),
+          }
+        })
+
+        return {
+          ...oldData,
+          pages: newData,
+        }
+      })
+    })
+
+    socket.on(addKey, (message: MessageWithMemberWithProfile) => {
+      queryClient.setQueryData([queryKey], (oldData: any) => {
+        if (!oldData || !oldData.pages || oldData.pages.length === 0) {
+          return {
+            pages: [
+              {
+                items: [message],
+              },
+            ],
+          }
+        }
+
+        const newData = [...oldData.pages]
+        newData[0] = {
+          ...newData[0],
+          items: [message, ...newData[0].items],
+        }
+
+        return {
+          ...oldData,
+          pages: newData,
+        }
+      })
+    })
+
+    return () => {
+      socket.off(addKey)
+      socket.off(updateKey)
+    }
+  }, [queryClient, addKey, queryKey, updateKey, socket])
+}
+```
+
 
 
 ![screen](./screenshots/emoji-picker.png)
 
-<p align="center">Project made with :blue_heart: by <a href="https://github.com/stardusteight-d4c">Gabriel Sena</a></p>
+<p align="center">Project studied with :blue_heart: by <a href="https://github.com/stardusteight-d4c">Gabriel Sena</a></p> 
+<p align="center">From channel :fire: <a href="https://www.youtube.com/@codewithantonio">Code With Antonio</a></p>
